@@ -86,15 +86,15 @@ dsh plugin --profile desktop add dsh-smart-proxy
 
 ```bash
 npm pack
-# 生成 dsh-smart-proxy-0.3.0.tgz
-gh release create v0.3.0 dsh-smart-proxy-0.3.0.tgz
+# 生成 dsh-smart-proxy-0.3.1.tgz
+gh release create v0.3.1 dsh-smart-proxy-0.3.1.tgz
 ```
 
 安装这个 tarball：
 
 ```bash
 dsh plugin --profile desktop add \
-  https://github.com/MuDong612/dsh-smart-proxy/releases/download/v0.3.0/dsh-smart-proxy-0.3.0.tgz
+  https://github.com/MuDong612/dsh-smart-proxy/releases/download/v0.3.1/dsh-smart-proxy-0.3.1.tgz
 ```
 
 > 安装/替换插件后，**重启一次 DSH**（⌘Q 完全退出再打开）。插件代码和 `.env` 都在启动时读取，重启后才会生效。

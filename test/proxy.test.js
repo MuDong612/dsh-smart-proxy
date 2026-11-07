@@ -301,3 +301,43 @@ test("removeHarnessEnv 清除托管块并保留用户变量", () => {
     fs.rmSync(home, { recursive: true, force: true });
   }
 });
+
+test("resolve 让路由随配置实时变化", async () => {
+  const echo = await startEcho();
+  const upstreamA = await startFakeUpstream();
+  const upstreamB = await startFakeUpstream();
+  let runtime = {
+    enabled: false,
+    upstream: `http://127.0.0.1:${upstreamA.port}`,
+    patterns: ["127.0.0.1"],
+  };
+  const proxy = createSelectiveProxy({ port: 0, resolve: () => runtime });
+  try {
+    const address = await proxy.listen();
+
+    const direct = await connectVia(address.port, `127.0.0.1:${echo.port}`);
+    assert.equal(direct.status, 200);
+    assert.equal(await roundTrip(direct.socket, "off"), "off");
+    direct.socket.destroy();
+    assert.deepEqual(upstreamA.seen, []);
+
+    runtime = { ...runtime, enabled: true };
+    const proxied = await connectVia(address.port, `127.0.0.1:${echo.port}`);
+    assert.equal(proxied.status, 200);
+    assert.equal(await roundTrip(proxied.socket, "on"), "on");
+    proxied.socket.destroy();
+    assert.deepEqual(upstreamA.seen, [`127.0.0.1:${echo.port}`]);
+
+    runtime = { ...runtime, upstream: `http://127.0.0.1:${upstreamB.port}` };
+    const moved = await connectVia(address.port, `127.0.0.1:${echo.port}`);
+    assert.equal(moved.status, 200);
+    assert.equal(await roundTrip(moved.socket, "b"), "b");
+    moved.socket.destroy();
+    assert.deepEqual(upstreamB.seen, [`127.0.0.1:${echo.port}`]);
+  } finally {
+    await proxy.close();
+    await upstreamA.close();
+    await upstreamB.close();
+    await echo.close();
+  }
+});
