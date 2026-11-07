@@ -1,6 +1,6 @@
 {
   "name": "dsh-smart-proxy",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "DeepSeek Harness 选择性代理：只让白名单域名（Gemini / OpenAI / Claude 等）走 Clash 等上游代理，其余域名永远直连。关闭 Clash 时只有白名单域名受影响。",
   "repository": {
     "type": "git",
@@ -14,6 +14,7 @@
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
+    "./client": "./lib/client.js",
     "./proxy": "./lib/proxy.js",
     "./env": "./lib/env.js",
     "./package.json": "./package.json",
@@ -34,6 +35,13 @@
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-locale"
+      ]
     }
   },
   "scripts": {

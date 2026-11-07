@@ -58,10 +58,12 @@ and `~/.dsh/.env` are read at startup.
 
 ## Configure
 
-1. Open **Settings → Plugins → Smart proxy (dsh-smart-proxy)**.
-2. Set `upstream` to your Clash HTTP proxy (default `http://127.0.0.1:7890`).
-3. Edit `patterns` to add or remove domains.
-4. Save. Whitelist/upstream changes apply immediately; port changes need a DSH restart.
+1. Open the **Plugins** page in the left sidebar (not **Settings → Built-in plugins**).
+2. Open **dsh-smart-proxy**, then the **smart-proxy** row.
+3. Click **Configure**; the form is rendered on the row page.
+4. Set `upstream` to your Clash HTTP proxy (default `http://127.0.0.1:7890`).
+5. Edit `patterns` to add or remove domains.
+6. Save. Whitelist/upstream changes apply immediately; port changes need a DSH restart.
 
 ### Defaults
 

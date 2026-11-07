@@ -32,7 +32,7 @@ dsh-smart-proxy (本插件，只监听 127.0.0.1)
 
 - **按域名选择性代理**：后缀匹配，`a.google.com` 命中 `google.com`，`notgoogle.com` 不误伤；支持 `*.example.com`。
 - **零手工配置 `.env`**：插件启动时自动维护 `~/.dsh/.env` 里的代理块，保留你的其他变量（比如 `GEMINI_API_KEY`），并自动备份。
-- **可视化配置**：安装后在 DSH 的插件设置页直接改上游地址、端口、域名白名单，不用编辑文件。
+- **可视化配置**：安装后在 DSH 的**插件页 → dsh-smart-proxy → smart-proxy → 配置**里改上游地址、端口、域名白名单，不用编辑文件。
 - **上游可用性自检**：启动时探测 Clash 端口，日志里直接告诉你上游通不通。
 - **支持上游认证**：`http://user:pass@host:port`，或单独填 `user:password`。
 - **安全默认**：只监听 `127.0.0.1`，不暴露给局域网。
@@ -86,15 +86,15 @@ dsh plugin --profile desktop add dsh-smart-proxy
 
 ```bash
 npm pack
-# 生成 dsh-smart-proxy-0.2.0.tgz
-gh release create v0.2.0 dsh-smart-proxy-0.2.0.tgz
+# 生成 dsh-smart-proxy-0.3.0.tgz
+gh release create v0.3.0 dsh-smart-proxy-0.3.0.tgz
 ```
 
 安装这个 tarball：
 
 ```bash
 dsh plugin --profile desktop add \
-  https://github.com/MuDong612/dsh-smart-proxy/releases/download/v0.2.0/dsh-smart-proxy-0.2.0.tgz
+  https://github.com/MuDong612/dsh-smart-proxy/releases/download/v0.3.0/dsh-smart-proxy-0.3.0.tgz
 ```
 
 > 安装/替换插件后，**重启一次 DSH**（⌘Q 完全退出再打开）。插件代码和 `.env` 都在启动时读取，重启后才会生效。
@@ -102,16 +102,18 @@ dsh plugin --profile desktop add \
 ## 首次使用
 
 1. 安装完成后**完全退出并重开 DSH**。
-2. 打开 **设置 → 插件**，找到 **智能代理（dsh-smart-proxy）**，点配置。
-3. 填上你 Clash 的 HTTP 代理端口（默认 `7890`），保存。
-4. 日志里应该出现：
+2. 打开左侧栏的 **插件** 页（拼图图标）。注意不是 **设置 → 内置插件**，那里只列内置插件。
+3. 在「已安装」里找到 **dsh-smart-proxy**，点开进入详情。
+4. 在 **smart-proxy** 这一行点 **配置**，表单会出现在行详情页上。
+5. 填上你 Clash 的 HTTP 代理端口（默认 `7890`），保存。
+6. 日志里应该出现：
 
    ```text
    dsh-smart-proxy: 已监听 http://127.0.0.1:17890，上游 127.0.0.1:7890，白名单 17 条，选择性代理模式
    dsh-smart-proxy: 上游代理 127.0.0.1:7890 可达。
    ```
 
-5. 验证分流（Clash 开着）：
+7. 验证分流（Clash 开着）：
 
    ```bash
    curl -sS -o /dev/null -w "deepseek %{http_code}\n" -x http://127.0.0.1:17890 https://api.deepseek.com
@@ -199,6 +201,12 @@ lsof -nP -iTCP -sTCP:LISTEN | grep -E '7890|7897|7891'
 2. 插件日志是否显示「上游代理 … 可达」；
 3. `patterns` 是否包含目标域名；
 4. 改的是 `port` 吗？端口变了必须重启 DSH（`.env` 才会更新）。
+
+**在设置里找不到配置入口？**
+
+配置不在 **设置 → 插件**（内置插件列表）里，而在左侧栏的 **插件** 页：进入 `dsh-smart-proxy` 的详情，
+再点 `smart-proxy` 这一行的 **配置**。如果连「配置」按钮都没有，说明 Client 半边没有加载，
+先刷新页面（⌘R），还不行就重启 DSH。
 
 **能直接用插件页的开关关掉它吗？**
 
