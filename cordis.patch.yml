@@ -1,0 +1,11 @@
+# dsh-smart-proxy 的默认加载配置。
+#
+# port 必须与 ~/.dsh/.env 里的 HTTP_PROXY 端口一致。插件启动时会自动维护
+# ~/.dsh/.env，所以一般不需要手改；改端口后需要重启一次 DSH 才会生效。
+- insert:
+    - id: smart-proxy
+      name: dsh-smart-proxy
+      config:
+        enabled: true
+        port: 17890
+        upstream: http://127.0.0.1:7890

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Smart proxy (dsh-smart-proxy)",
+    "description": "Routes only whitelisted AI domains (Gemini, OpenAI, Claude, …) through your upstream proxy such as Clash, while every other domain stays direct."
+  }
+}

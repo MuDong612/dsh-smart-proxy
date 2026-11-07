@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "智能代理（dsh-smart-proxy）",
+    "description": "只让 Gemini、OpenAI、Claude 等白名单域名走 Clash 等上游代理，其余域名永远直连；关闭 Clash 时不影响对话和国内模型。"
+  }
+}

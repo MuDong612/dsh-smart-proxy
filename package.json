@@ -1,0 +1,59 @@
+{
+  "name": "dsh-smart-proxy",
+  "version": "0.2.0",
+  "description": "DeepSeek Harness 选择性代理：只让白名单域名（Gemini / OpenAI / Claude 等）走 Clash 等上游代理，其余域名永远直连。关闭 Clash 时只有白名单域名受影响。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./proxy": "./lib/proxy.js",
+    "./env": "./lib/env.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "lib",
+    "scripts",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.en.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node --test",
+    "prepublishOnly": "npm test",
+    "restore-env": "node scripts/restore-env.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": ">=3.18.4 <4"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "dsh-bundle",
+    "proxy",
+    "selective-proxy",
+    "clash",
+    "gemini",
+    "openai"
+  ],
+  "license": "MIT"
+}
