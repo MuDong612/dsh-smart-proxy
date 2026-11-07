@@ -35,13 +35,19 @@ dsh-smart-proxy (127.0.0.1 only)
 ## Install
 
 ```bash
-git clone https://github.com/<your-name>/dsh-smart-proxy.git
+git clone https://github.com/MuDong612/dsh-smart-proxy.git
 ```
 
 Then ask the DSH agent to install `dsh-smart-proxy` from that directory, or with the CLI:
 
 ```bash
 dsh plugin --profile desktop add /absolute/path/to/dsh-smart-proxy
+```
+
+Directly from GitHub (no build step):
+
+```bash
+dsh plugin --profile desktop add github:MuDong612/dsh-smart-proxy
 ```
 
 From npm: `dsh plugin --profile desktop add dsh-smart-proxy` after `npm publish`.

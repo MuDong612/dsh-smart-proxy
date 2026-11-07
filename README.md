@@ -43,7 +43,7 @@ dsh-smart-proxy (本插件，只监听 127.0.0.1)
 ### 方式一：本地目录（推荐先这样用）
 
 ```bash
-git clone https://github.com/<your-name>/dsh-smart-proxy.git
+git clone https://github.com/MuDong612/dsh-smart-proxy.git
 ```
 
 然后在 DSH 里对 Agent 说：
@@ -60,7 +60,17 @@ Agent 会通过 DSH 的 `plugin_manager` 安装并注册 bundle。
 dsh plugin --profile desktop add /绝对路径/dsh-smart-proxy
 ```
 
-### 方式二：发布到 npm 之后
+### 方式二：直接从 GitHub 安装
+
+仓库没有构建步骤，可以让 DSH 直接从 GitHub 拉取：
+
+```bash
+dsh plugin --profile desktop add github:MuDong612/dsh-smart-proxy
+```
+
+或者在 DSH 的插件安装入口填 `github:MuDong612/dsh-smart-proxy`。
+
+### 方式三：发布到 npm 之后
 
 ```bash
 npm publish
@@ -72,7 +82,7 @@ npm publish
 dsh plugin --profile desktop add dsh-smart-proxy
 ```
 
-### 方式三：GitHub Release（不用 npm）
+### 方式四：GitHub Release（不用 npm）
 
 ```bash
 npm pack
@@ -84,7 +94,7 @@ gh release create v0.2.0 dsh-smart-proxy-0.2.0.tgz
 
 ```bash
 dsh plugin --profile desktop add \
-  https://github.com/<your-name>/dsh-smart-proxy/releases/download/v0.2.0/dsh-smart-proxy-0.2.0.tgz
+  https://github.com/MuDong612/dsh-smart-proxy/releases/download/v0.2.0/dsh-smart-proxy-0.2.0.tgz
 ```
 
 > 安装/替换插件后，**重启一次 DSH**（⌘Q 完全退出再打开）。插件代码和 `.env` 都在启动时读取，重启后才会生效。
@@ -249,7 +259,7 @@ git commit -m "feat: selective proxy plugin for DeepSeek Harness"
 gh repo create dsh-smart-proxy --public --source=. --push
 ```
 
-记得把 `package.json` 里的 `repository`、`homepage`、作者信息补上（本仓库故意留空，避免写错地址）。
+仓库地址已经写进 `package.json` 的 `repository` / `homepage`，需要改作者信息时直接编辑即可。
 
 ## License
 
